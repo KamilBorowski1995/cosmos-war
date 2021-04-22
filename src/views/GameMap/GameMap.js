@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 import { initialState, reducer } from "store/store";
 
@@ -13,9 +13,10 @@ const GameMap = () => {
 
   const Player = {
     xMove: "none",
+    shoot: false,
   };
 
-  function move() {
+  function drawFn() {
     if (Player.xMove === "right") {
       dispatch({ type: "MOVE_RIGHT" });
     }
@@ -23,11 +24,18 @@ const GameMap = () => {
       dispatch({ type: "MOVE_LEFT" });
     }
     dispatch({ type: "MOVE_ROCK" });
+    dispatch({ type: "MOVE_BULLET" });
+    dispatch({ type: "DESTRUCTION_ROCK" });
+  }
+
+  function newRock() {
+    dispatch({ type: "NEW_ROCK" });
   }
 
   function movePlane() {
     window.addEventListener("keydown", (e) => {
       const key = e.keyCode;
+
       switch (key) {
         case 37:
           Player.xMove = "left";
@@ -36,7 +44,12 @@ const GameMap = () => {
         case 39:
           Player.xMove = "right";
           break;
-
+        case 32:
+          if (Player.shoot !== true) {
+            Player.shoot = true;
+            dispatch({ type: "NEW_BULLET" });
+          }
+          break;
         default:
           break;
       }
@@ -52,6 +65,10 @@ const GameMap = () => {
         case 39:
           Player.xMove = "none";
           break;
+        case 32:
+          Player.shoot = false;
+
+          break;
 
         default:
           break;
@@ -61,21 +78,41 @@ const GameMap = () => {
 
   useEffect(() => {
     movePlane();
+    function setSizeWindow() {
+      const windowsSizeX = window.innerWidth;
+      const windowsSizeY = window.innerHeight;
 
-    // const intervalMove = setInterval(move, 1000 / 60);
+      dispatch({
+        type: "SET_WINDOW_SIZE",
+        sizeX: windowsSizeX,
+        sizeY: windowsSizeY,
+      });
+    }
+    setSizeWindow();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    // move();
-
-    const intervalMove = setInterval(move, 1000 / 60);
+    setInterval(drawFn, 1000 / 60);
+    setInterval(newRock, 2000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const MapBullet = state.Bullet.map(({ id, posX, posY }) => {
+    return <Bullet key={id} id={id} posX={posX} posY={posY} />;
+  });
+
+  const MapRock = state.Rock.map(({ id, posX, posY }) => {
+    return <Rock key={id} id={id} posX={posX} posY={posY} />;
+  });
 
   return (
     <div className="map">
       <Plane positionX={state.PlayerX} />
-      {/* <Bullet  /> */}
-      <Rock pos={state.RockY} />
+
+      {state.Bullet.length > 0 && MapBullet}
+      {state.Rock.length > 0 && MapRock}
     </div>
   );
 };

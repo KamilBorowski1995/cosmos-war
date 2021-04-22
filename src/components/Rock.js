@@ -3,21 +3,23 @@ import { useState, useEffect } from "react";
 import RockSvg from "assets/rock.svg";
 import "./Rock.css";
 
-const Rock = ({ pos }) => {
-  const [y, setY] = useState(pos);
+const Rock = (props) => {
+  const [posX, setPosX] = useState(0);
+  const [posY, setPosY] = useState(0);
 
   useEffect(() => {
-    setY(pos);
-  }, [pos]);
+    setPosX(props.posX);
+    setPosY(props.posY);
+  }, [props]);
 
-  const position = {
-    top: y,
+  const Style = {
+    left: posX,
+    bottom: posY,
   };
-
   return (
     <img
       className="rock"
-      style={position}
+      style={Style}
       src={RockSvg}
       alt="Icon made by DinosoftLabs from www.flaticon.com"
     />

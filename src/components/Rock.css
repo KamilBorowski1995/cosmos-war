@@ -1,6 +1,17 @@
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .rock {
   position: absolute;
 
   width: 64px;
   height: 64px;
+
+  animation: rotate 5s infinite linear;
 }

@@ -1,7 +1,5 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
 import PlaneSvg from "assets/airplane.svg";
-
-import { initialState, reducer } from "store/store";
 
 import "./Plane.css";
 
