@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/cosmos-war/static/css/main.8ddab950.chunk.css",
+    "main.js": "/cosmos-war/static/js/main.fae29e55.chunk.js",
+    "main.js.map": "/cosmos-war/static/js/main.fae29e55.chunk.js.map",
+    "runtime-main.js": "/cosmos-war/static/js/runtime-main.935f0925.js",
+    "runtime-main.js.map": "/cosmos-war/static/js/runtime-main.935f0925.js.map",
+    "static/js/2.4a55c8ec.chunk.js": "/cosmos-war/static/js/2.4a55c8ec.chunk.js",
+    "static/js/2.4a55c8ec.chunk.js.map": "/cosmos-war/static/js/2.4a55c8ec.chunk.js.map",
+    "index.html": "/cosmos-war/index.html",
+    "static/css/main.8ddab950.chunk.css.map": "/cosmos-war/static/css/main.8ddab950.chunk.css.map",
+    "static/js/2.4a55c8ec.chunk.js.LICENSE.txt": "/cosmos-war/static/js/2.4a55c8ec.chunk.js.LICENSE.txt",
+    "static/media/airplane.00b92857.svg": "/cosmos-war/static/media/airplane.00b92857.svg",
+    "static/media/bullet.5bf0cc54.svg": "/cosmos-war/static/media/bullet.5bf0cc54.svg",
+    "static/media/explosion.34dd94e1.png": "/cosmos-war/static/media/explosion.34dd94e1.png",
+    "static/media/rock.38b58fe3.svg": "/cosmos-war/static/media/rock.38b58fe3.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.935f0925.js",
+    "static/js/2.4a55c8ec.chunk.js",
+    "static/css/main.8ddab950.chunk.css",
+    "static/js/main.fae29e55.chunk.js"
+  ]
+}
