@@ -4,7 +4,16 @@
   overflow: hidden;
 
   position: relative;
+
+  font-family: "Press Start 2P", cursive;
 }
 
-.SVGElement {
+.game-info {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.game-info p {
+  z-index: 1;
 }

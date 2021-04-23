@@ -5,7 +5,15 @@ export const initialState = {
   Rock: [],
   Bullet: [],
   WindowSize: [0, 0],
+  Points: 0,
+  HP_Player: 3,
 };
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 export function reducer(state, action) {
   switch (action.type) {
@@ -39,7 +47,11 @@ export function reducer(state, action) {
     case "NEW_ROCK":
       const newArrayRock = [
         ...state.Rock,
-        { id: uniqid(), posX: state.PlayerX - 24, posY: state.WindowSize[1] },
+        {
+          id: uniqid(),
+          posX: getRandomInt(100, state.WindowSize[0] - 100),
+          posY: state.WindowSize[1],
+        },
       ];
       return { ...state, Rock: newArrayRock };
 
@@ -68,6 +80,7 @@ export function reducer(state, action) {
     case "DESTRUCTION_ROCK":
       let idDeleteRock = null;
       let idDeleteBullet = null;
+      let newPoints = state.Points;
       const colision = state.Rock.forEach((elRock) => {
         state.Bullet.forEach((elBullet) => {
           if (
@@ -77,6 +90,7 @@ export function reducer(state, action) {
             if (elRock.posY <= elBullet.posY) {
               idDeleteRock = elRock.id;
               idDeleteBullet = elBullet.id;
+              newPoints = newPoints + 1;
             }
           }
         });
@@ -87,8 +101,37 @@ export function reducer(state, action) {
         (el) => el.id !== idDeleteBullet
       );
 
-      // return { ...state };
-      return { ...state, Rock: RockAfterDelete, Bullet: BulletAfterDelete };
+      return {
+        ...state,
+        Rock: RockAfterDelete,
+        Bullet: BulletAfterDelete,
+        Points: newPoints,
+      };
+
+    case "LOSS_LIFE":
+      let idColisionRock = null;
+      let newHP = state.HP_Player;
+      const colisionRock = state.Rock.forEach((elRock) => {
+        if (
+          elRock.posX - 64 <= state.PlayerX &&
+          elRock.posX + 64 >= state.PlayerX
+        ) {
+          if (elRock.posY <= 84) {
+            idColisionRock = elRock.id;
+            newHP = newHP - 1;
+          }
+        }
+      });
+
+      const RockAfterColision = state.Rock.filter(
+        (el) => el.id !== idColisionRock
+      );
+
+      return {
+        ...state,
+        Rock: RockAfterColision,
+        HP_Player: newHP,
+      };
 
     default:
       throw new Error();

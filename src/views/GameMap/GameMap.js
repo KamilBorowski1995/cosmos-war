@@ -26,10 +26,22 @@ const GameMap = () => {
     dispatch({ type: "MOVE_ROCK" });
     dispatch({ type: "MOVE_BULLET" });
     dispatch({ type: "DESTRUCTION_ROCK" });
+    dispatch({ type: "LOSS_LIFE" });
   }
 
   function newRock() {
     dispatch({ type: "NEW_ROCK" });
+  }
+
+  function setSizeWindow() {
+    const windowsSizeX = window.innerWidth;
+    const windowsSizeY = window.innerHeight;
+
+    dispatch({
+      type: "SET_WINDOW_SIZE",
+      sizeX: windowsSizeX,
+      sizeY: windowsSizeY,
+    });
   }
 
   function movePlane() {
@@ -78,16 +90,7 @@ const GameMap = () => {
 
   useEffect(() => {
     movePlane();
-    function setSizeWindow() {
-      const windowsSizeX = window.innerWidth;
-      const windowsSizeY = window.innerHeight;
 
-      dispatch({
-        type: "SET_WINDOW_SIZE",
-        sizeX: windowsSizeX,
-        sizeY: windowsSizeY,
-      });
-    }
     setSizeWindow();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,6 +116,14 @@ const GameMap = () => {
 
       {state.Bullet.length > 0 && MapBullet}
       {state.Rock.length > 0 && MapRock}
+      <div className="game-info">
+        <p className="player-hp">
+          <span>{state.HP_Player}</span> HP
+        </p>
+        <p className="player-points">
+          <span>{state.Points}</span> pkt.
+        </p>
+      </div>
     </div>
   );
 };
